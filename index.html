@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>西电毕业季</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="jquery-2.1.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+		
+		var timeID;
+		var image;
+		var current = 0;
+		var images = new Array(5);
+		function init(){
+		for (var i=1;i<=5;i++){
+		images[i] = new Image(450,550);
+		images[i].src = "pictures/"+i+".jpg";
+		}
+		image = document.images[0];
+		}
+		function play(){
+		if (current >= 5){
+		current = 0;
+		}
+		setSrc(++current);
+		}
+		timeID=setInterval('play()',1000)
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<div class="logo">
+			<div class="headlogo">
+				<a href="index.html"><img src="headlogo.jpg" alt="headlogo"></a>
+			</div>
+			<div class="invitation"><img src="invitation.jpg" alt="invitation">
+			</div>
+		</div>
+		<div class="nav">
+			<ul>
+				<li> <a id="spe" href="#"> <span>   首页 </span></a></li>
+				<li> <a href="#"> 毕业快讯</a></li>
+				<li> <a href="#"> 毕业快讯</a></li>
+				<li> <a href="#"> 毕业快讯</a></li>
+				<li> <a href="#"> 毕业快讯</a></li>
+				<li> <a href="#"> 毕业快讯</a></li>
+				<li> <a href="#"> 毕业快讯</a></li>
+			</ul>
+		</div>
+	</header>
+	<section>
+		<div class="pic">
+			<div class="picture"> <img src="pictures/1.jpg" alt="照片"> </div>
+			<div class="info">
+				<p>四年的生活，我们毕业了</p>
+			</div>
+			<div class="lastButton"></div>
+			<div class="nextButton"></div>
+		</div>
+		<div class="calendar">
+			<h2>毕业日历</h2>
+			<div class="calPic"></div>
+		</div>
+		<div class="news">
+			<div class="video">
+				<img src="video.jpg" alt="video">
+			</div>
+			<div class="post">
+				<img src="post.jpg" alt="post">
+			</div>
+		</div>
+		<div class="note">
+			<img src="note1.jpg" alt="note1">
+			<img src="note2.jpg" alt="note2">
+			<img src="note3.jpg" alt="note3">
+		</div>
+	</section>	
+	<footer>
+		<span style="font-family:arial;">Copyright &copy;2014 西安电子科技大学学工处&nbsp;&nbsp;&nbsp;ALL&nbsp;Right&nbsp;Reserved.&nbsp;Powerd&nbsp;By&nbsp;西电微客工作室&nbsp;Wecan&nbsp;Studio</span>
+	</footer>	
+</body>
+</html>

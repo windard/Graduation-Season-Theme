@@ -1,0 +1,189 @@
+/*
+Theme Name:Graduation
+Theme URI: http://byj.xidian.edu.cn
+Description:A WordPress Theme for Xidian 2011th Graduation Season.
+ 
+Author: Windard
+Author URI: http://www.wenqiangyang.com
+Version: 1.0
+
+--------------------------------------------------------------------------------------
+
+	1.	Base CSS
+	2.	Forms
+	3. 	Features
+	4.	Footer
+	5.	Header/Navigation
+	6.	Mobile Navigation
+	7.	Posts
+	8.	Post Formats
+	9.	Comments
+	10. Elements
+	11.	Social Icons
+	12.	Wordpress Core
+	13.	Widgets
+	14.	LayerSlider
+	15. Visual Composer
+	16.	Misc
+
+-------------------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------------------*/
+/*	1. Base CSS
+/*-----------------------------------------------------------------------------------*/
+
+*{
+	padding: 0px;
+	margin: 0px;
+}
+body{
+	background: #F7F7F7;		
+}
+header{
+	width: 80%;
+	height: 150px;
+	margin: 0 auto 0;
+}
+.logo{
+	height: 100px;
+	border-bottom:1px solid black; 
+}
+.headlogo{
+	float: left;
+	padding-left:60px; 
+}
+.headlogo img{
+	width: 650px;
+	height: 100px;
+}
+.invitation{
+	float: left;
+	padding-top: 15px;
+	padding-left: 130px;
+}
+
+.nav{
+	height: 50px;
+	width: 85%;
+	clear:both;
+	margin: 0 auto 0;
+}
+.nav ul{
+	list-style-type: none;
+}
+.nav ul li{
+	width: 125px;
+	height: 50px;
+	float:left;
+}
+#spe{
+	padding: 15px 35px 10px;
+}
+.nav a{
+	color:black;
+	float:left;
+	padding: 15px 20px 10px;
+	font-size: 20px;
+	font-weight: bolder;
+	text-align: center;
+	font-family: MicroSoft YaHei;
+}
+.nav a:link{
+	color: black;
+	text-decoration: none;
+}
+.nav a:hover{
+	color: orange;
+	text-decoration:underline;
+	background: #66D9EF;
+}
+section{
+	margin-top: 5px;
+	width: 100%;
+	height:550px;
+	background: red;
+}
+section img{
+	width: 100%;
+	height: 550px;
+}
+.picture img{
+	z-index: -1;
+}
+.info{
+	width: 100%;
+	height: 30px;
+	margin-top: -50px;
+	background: red;
+}
+.info p{
+	background: red;
+	margin-left: 100px;
+	font-family:  MicroSoft YaHei;
+	font-size: 24px;
+
+}
+.calendar{
+	width: 100%;
+	height: 200px;
+	margin-top: 50px;
+}
+.calendar h2{
+	margin-left: 50px;
+	font-size: 24px;
+	font-weight: bold;
+	font-family: MicroSoft YaHei ;
+}
+.calPic{
+	width: 100%;
+	height: 100px;
+}
+.news{
+	width: 80%;
+	height: 500px;
+	background-color:#F2F2F2;
+	margin: 0 auto 0;
+}
+.video{
+	margin-top: 10px;
+	margin-left: 50px;
+	float:left;
+}
+.video img{
+	width:450px;
+	height:350px; 
+}
+.post{
+	float: left;
+	margin-top: 10px;
+	margin-left: 50px;
+}
+.post img{
+	width: 450px;
+	height: 350px;
+}
+.note{
+	width: 80%;
+	height: 300px;
+	margin-bottom: 20px;
+	margin: 0 auto 0;
+}
+.note img{
+	width: 340px;
+	height: 450px;
+	float: left;
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-bottom: 30px;
+}
+footer{
+	margin-top: 50px;
+	width: 100%;
+	height: 60px;
+	background: #C9C9C9;
+	clear: both;
+	text-align: center;
+	padding-top: 30px;
+	font-weight: bold;
+	font-family: MicroSoft YaHei  ;
+}
