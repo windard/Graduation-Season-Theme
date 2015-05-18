@@ -1,0 +1,202 @@
+<!-- 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+ 
+
+<html>
+
+ 
+
+<head>
+
+<meta 
+http-equiv="Content-Type"content="text/html;
+ charset=UTF-8">
+
+<title>Insert title here</title>
+
+</head>
+
+<script 
+type="text/javascript">
+
+var timeID;
+
+var image;
+
+var current=
+0;
+
+var images=
+new 
+Array(5);
+
+function init(){
+
+for(var i=1;i<=5;i++){
+
+images[i]=
+new 
+Image(450,550);
+
+images[i].src=
+"pictures/"+i+".jpg";
+
+}
+
+image = document.images[0];
+
+}
+
+function setSrc(i){
+
+current = i;
+
+//设置图片src的属性，实现图片的切换
+
+image.src= images[i].src;
+
+}
+
+function pre(){
+
+if(current<=0){
+
+alert('已经是第一张了');
+
+}else{
+
+current--;
+
+setSrc(current);
+
+}
+
+}
+
+function next(){
+
+if(current>=5){
+
+alert('已经是最后一张了');
+
+}else{
+
+current++;
+
+setSrc(current);
+
+}
+
+}
+
+function play(){
+
+if(current>=5){
+
+current =0;
+
+}
+
+setSrc(++current);
+
+}
+
+</script>
+
+<body 
+onload="init()">
+
+<input 
+type="button"value="第一张"onclick="setSrc(1)">
+
+<input 
+type="button"value="上一张"onclick="pre()">
+
+<input 
+type="button"value="下一张"onclick="next()">
+
+<input 
+type="button"value="最后一张"onclick="setSrc(5)">
+
+<input 
+type="button"value="幻灯播放"onclick="timeID=setInterval('play()',500)">
+
+<input 
+type="button"value="停止播放"onclick="clearInterval(timeID)">
+
+<div 
+style="border:1px
+ solid blue;width:450px;
+ height:550px;"id="myPic">
+
+<imgsrc="pictures/1.jpg"/>
+
+</div>
+
+</body>
+
+ -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+<html>
+ 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	var timeID;
+	var image;
+	var current = 0;
+	var images = new Array(5);
+	function init(){
+		for (var i=1;i<=5;i++){
+			images[i] = new Image(450,550);
+			images[i].src = "pictures/"+i+".jpg";
+		}
+		image = document.images[0];
+	}
+	function setSrc(i){
+		current = i;
+		//设置图片src的属性，实现图片的切换
+		image.src = images[i].src;
+	}
+	function pre(){
+		if (current <= 0){
+			alert('已经是第一张了');
+		}else{
+			current--;
+			setSrc(current);
+		}
+	}
+	function next(){
+		if (current >= 5){
+			alert('已经是最后一张了');
+		}else{
+			current++;
+			setSrc(current);
+		}
+	}
+	function play(){
+		if (current >= 5){
+			current = 0;
+		}
+		setSrc(++current);
+	}
+</script>
+<body onload="init()">
+<input type="button" value="第一张" onclick="setSrc(1)">
+<input type="button" value="上一张" onclick="pre()">
+<input type="button" value="下一张" onclick="next()">
+<input type="button" value="最后一张" onclick="setSrc(5)">
+<input type="button" value="幻灯播放" onclick="timeID=setInterval('play()',500)">
+<input type="button" value="停止播放" onclick="clearInterval(timeID)">
+<div style="border:1px solid blue;width:450px; height:550px;" id="myPic">
+	<img src="pictures/1.jpg" />
+</div>
+</body>
+</html>
+
+</html>

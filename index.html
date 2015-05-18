@@ -5,28 +5,127 @@
 	<title>西电毕业季</title>
 	<link rel="stylesheet" href="style.css">
 	<script src="jquery-2.1.1.min.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/slider.js"></script>
 	<script>
-		$(document).ready(function(){
-		
-		var timeID;
-		var image;
-		var current = 0;
-		var images = new Array(5);
-		function init(){
-		for (var i=1;i<=5;i++){
-		images[i] = new Image(450,550);
-		images[i].src = "pictures/"+i+".jpg";
+		// var timeID;
+		// var image;
+		// var current = 0;
+		// var images = new Array(5);
+		// function init(){
+		// 	for (var i=1;i<=5;i++){
+		// 		images[i] = new Image(1349,600);
+		// 		images[i].src = "pictures/"+i+".jpg";
+		// 	}
+		// 	image = document.images[0];
+		// }
+		// function setSrc(i){
+		// 	current = i;
+		// 	//设置图片src的属性，实现图片的切换
+		// 	image.src = images[i].src;
+		// }
+		// function pre(){
+		// 	if (current <= 0){
+		// 		alert('已经是第一张了');
+		// 	}else{
+		// 		current--;
+		// 		setSrc(current);
+		// 	}
+		// }
+		// function next(){
+		// 	if (current >= 5){
+		// 		alert('已经是最后一张了');
+		// 	}else{
+		// 		current++;
+		// 		setSrc(current);
+		// 	}
+		// }
+		// function play(){
+		// 	if (current >= 5){
+		// 		current = 0;
+		// 	}
+		// 	setSrc(++current);
+		// }
+
+	// var mainPicture = {
+	// 	num: parseInt($('.mainpicture div').length)
+	// 	,reset: function(){
+	// 		var that=this;
+	// 		for(var i=0;i<that.num;i++){
+	// 			$('.mainpicture div:eq('+i+')').css({'top':'-'+((that.num-1)*100*i)+'px','left':'-'+(100*i)+'%'});
+	// 		};
+	// 	}
+	// 	,fun: function(){
+	// 		var that=mainPicture;
+	// 		if(parseInt($('.mainpicture div:eq(0)').css('left').split('%')[0])>=(that.num-1)*100){
+	// 			that.reset();
+	// 		}else{
+	// 			for(var i=0;i<that.num;i++){
+	// 				var left=parseInt($('.mainpicture div:eq('+i+')').css('left').split('%')[0])+100;
+	// 				$('.mainpicture div:eq('+i+')').animate({left:left+'%'});
+	// 			};
+	// 		}
+	// 	}
+	// 	,init: function(){
+	// 		this.reset();
+	// 		setInterval(this.fun,3000);
+	// 	}
+	// }
+	// mainPicture.init();
+	// window.onload=function(){
+	// 	var myas=document.getElementById("postTitle").getElementsByTagName("a");
+	// 	var myuls=document.getElementById("postBody").getElementsByTagName("ul");
+	// 	myuls[1].style.display="none";
+	// 	myuls[2].style.display="none";
+	// 	for(var i=0;i<myas.length-1;i++){
+	// 		myas[i].index=i;
+	// 		myas[i].onmouseover=function(){
+	// 			for(var j=0;j<=2;j++){
+	// 				myuls[j].style.display="none";
+	// 			}
+	// 				myuls[this.index].style.display="block";
+	// 			for(var k=0;k<=2;k++){
+	// 				myas[k].className="no"+(k+1);
+	// 			}
+	// 			this.className=this.className+"cur";
+
+	// 		}
+	// 	}
+
+	// }
+		function biyekuaixun1(){
+			document.getElementById("biyexinwen1").style.display="block";
+			document.getElementById("biyekuaixun1").style.background="#18B4B2";
+			document.getElementById("biyekuaixun1").style.color="white";
+			document.getElementById("biyexinwen2").style.display="none";
+			document.getElementById("biyekuaixun2").style.background="white";
+			document.getElementById("biyekuaixun2").style.color="#18B4B2";
+			document.getElementById("biyexinwen3").style.display="none";
+			document.getElementById("biyekuaixun3").style.background="white";
+			document.getElementById("biyekuaixun3").style.color="#18B4B2";
 		}
-		image = document.images[0];
+		function biyekuaixun2(){
+			document.getElementById("biyexinwen2").style.display="block";
+			document.getElementById("biyekuaixun2").style.background="#18B4B2";
+			document.getElementById("biyekuaixun2").style.color="white";
+			document.getElementById("biyexinwen1").style.display="none";
+			document.getElementById("biyekuaixun1").style.background="white";
+			document.getElementById("biyekuaixun1").style.color="#18B4B2";
+			document.getElementById("biyexinwen3").style.display="none";
+			document.getElementById("biyekuaixun3").style.background="white";
+			document.getElementById("biyekuaixun3").style.color="#18B4B2";
 		}
-		function play(){
-		if (current >= 5){
-		current = 0;
-		}
-		setSrc(++current);
-		}
-		timeID=setInterval('play()',1000)
-		}
+		// function biyekuaixun3(){
+		// 	document.getElementById("biyexinwen3").style.display="block";
+		// 	document.getElementById("biyekuaixun3").style.background="#18B4B2";
+		// 	document.getElementById("biyekuaixun3").style.color="white";
+		// 	document.getElementById("biyexinwen2").style.display="none";
+		// 	document.getElementById("biyekuaixun2").style.background="white";
+		// 	document.getElementById("biyekuaixun2").style.color="#18B4B2";
+		// 	document.getElementById("biyexinwen1").style.display="none";
+		// 	document.getElementById("biyekuaixun1").style.background="white";
+		// 	document.getElementById("biyekuaixun1").style.color="#18B4B2";
+		// }
 	</script>
 </head>
 <body>
@@ -52,7 +151,14 @@
 	</header>
 	<section>
 		<div class="pic">
-			<div class="picture"> <img src="pictures/1.jpg" alt="照片"> </div>
+			<div class="mainpicture" >
+<!-- 				<div class="picture"> <img src="pictures/1.jpg" alt="照片"> </div>
+				<div class="picture"> <img src="pictures/2.jpg" alt="照片"> </div>
+				<div class="picture"> <img src="pictures/3.jpg" alt="照片"> </div>
+				<div class="picture"> <img src="pictures/4.jpg" alt="照片"> </div>
+ -->
+				<div class="slider_box"></div>
+ 			</div>
 			<div class="info">
 				<p>四年的生活，我们毕业了</p>
 			</div>
@@ -68,7 +174,44 @@
 				<img src="video.jpg" alt="video">
 			</div>
 			<div class="post">
-				<img src="post.jpg" alt="post">
+				<div class="postTitle">
+					<span id="biyekuaixun1" class="s1" onmouseover="biyekuaixun1()">毕业快讯</span>
+					<span id="biyekuaixun2" class="s2" onmouseover="biyekuaixun2()">毕业快讯</span>
+<!-- 					<span id="biyekuaixun3" class="s3" onmouseover="biyekuaixun3()">毕业快讯</span>
+-->					<a href="#">MORE&nbsp;>&nbsp;></a>
+				</div>
+				<div class="postBody">
+					<div id="biyexinwen1" class="postList">
+						<ul>
+							<li class="sha" > <a href="#">>>电信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a class="sha2" href="#">>>电信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>电信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>电信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>电信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>电信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>电信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+						</ul>
+					</div>
+					<div id="biyexinwen2" class="postList">
+						<ul>
+							<li> <a href="#">>>通信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>通信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>通信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>通信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>通信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>通信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							<li> <a href="#">>>通信学院举办求职择业经验交流会&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015-6-1</a></li>
+							
+						</ul>	
+					</div>
+<!-- 					<div id="biyexinwen3" class="postList">
+						<ul>
+							<li> <a href="#">毕业新闻3毕业新闻3毕业新闻3毕业新闻3</a></li>
+							<li> <a href="#">毕业新闻3毕业新闻3毕业新闻3毕业新闻3</a></li>
+							<li> <a href="#">毕业新闻3毕业新闻3毕业新闻3毕业新闻3</a></li>
+						</ul>
+					</div>
+ -->				</div>
 			</div>
 		</div>
 		<div class="note">
@@ -78,7 +221,7 @@
 		</div>
 	</section>	
 	<footer>
-		<span style="font-family:arial;">Copyright &copy;2014 西安电子科技大学学工处&nbsp;&nbsp;&nbsp;ALL&nbsp;Right&nbsp;Reserved.&nbsp;Powerd&nbsp;By&nbsp;西电微客工作室&nbsp;Wecan&nbsp;Studio</span>
+		<span style="font-family:arial;">Copyright &copy;2014 <a href="http://xgc.xidian.edu.cn/">西安电子科技大学学工处</a>&nbsp;&nbsp;&nbsp;ALL&nbsp;Right&nbsp;Reserved.&nbsp;Powerd&nbsp;By&nbsp;<a href="http://www.wecanstudio.me">西电微客工作室</a>&nbsp;Wecan&nbsp;Studio</span>
 	</footer>	
 </body>
 </html>
