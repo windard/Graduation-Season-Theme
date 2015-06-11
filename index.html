@@ -2,183 +2,377 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
 	<title>西电毕业季</title>
-	<link rel="stylesheet" href="style.css">
-	<script src="jquery-2.1.1.min.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery-2.1.1.min.js"></script>
 	<script src="js/jquery.js"></script>
 	<script src="js/slider.js"></script>
 	<script>
-		// var timeID;
-		// var image;
-		// var current = 0;
-		// var images = new Array(5);
-		// function init(){
-		// 	for (var i=1;i<=5;i++){
-		// 		images[i] = new Image(1349,600);
-		// 		images[i].src = "pictures/"+i+".jpg";
-		// 	}
-		// 	image = document.images[0];
-		// }
-		// function setSrc(i){
-		// 	current = i;
-		// 	//设置图片src的属性，实现图片的切换
-		// 	image.src = images[i].src;
-		// }
-		// function pre(){
-		// 	if (current <= 0){
-		// 		alert('已经是第一张了');
-		// 	}else{
-		// 		current--;
-		// 		setSrc(current);
-		// 	}
-		// }
-		// function next(){
-		// 	if (current >= 5){
-		// 		alert('已经是最后一张了');
-		// 	}else{
-		// 		current++;
-		// 		setSrc(current);
-		// 	}
-		// }
-		// function play(){
-		// 	if (current >= 5){
-		// 		current = 0;
-		// 	}
-		// 	setSrc(++current);
-		// }
+(function() {  
+    var btnId = '__gotop';  
+    var isIE = !!window.ActiveXObject && /msie (\d)/i.test(navigator.userAgent) ? RegExp['$1'] : false;  
+  
+    function $() {  
+        return document.getElementById(arguments[0]);  
+    }  
+  
+    function getScrollTop() {  
+        return ('pageYOffset' in window) ? window.pageYOffset  
+            : document.compatMode === "BackCompat"  
+            && document.body.scrollTop  
+            || document.documentElement.scrollTop ;  
+    }      
+  
+    function bindEvent(event, func) {  
+        if (window.addEventListener) {  
+            window.addEventListener(event, func, false);  
+        } else if (window.attachEvent) {  
+            window.attachEvent('on' + event, func);  
+        }  
+    }  
+  
+    bindEvent('load',  
+        function() {  
+            var css = 'background-color:#999;width:50px;height:50px;position:fixed;right:50px;bottom:30px;border-radius:10px;cursor:pointer;display:none;';  
+  
+            if (isIE && isIE < 7) {  
+                css += '_position:absolute;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-30-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)))';  
+                var style = document.createStyleSheet();  
+                style.cssText = '*html{background-image:url(about:blank);background-attachment:fixed;}';  
+            }  
+  
+            var html = '<div style="height: 0;width: 0;border:14px solid #999999;border-top: 0 none;border-bottom:14px solid #fff;position: relative;margin:12px 0 0 11px;"><div style="width:8px;height:7px;position:absolute;top:14px;left:-3px;background-color:#fff;overflow: hidden;"></div></div>';  
+            var el = document.createElement('DIV');  
+            el.id = btnId;  
+            el.style.cssText = css;  
+            el.innerHTML = html;  
+            document.body.appendChild(el);  
+  
+            el.onclick = function() {  
+                (function() {  
+                    var top = getScrollTop();  
+                    if (top > 0) {  
+                        window.scrollTo(0, top / 1.2)  
+                        setTimeout(arguments.callee, 10);  
+                    }  
+                })();  
+            };  
+  
+            el.onmouseover = function() {  
+                $(btnId).firstChild.style.borderBottom = '14px solid #ddd';  
+                $(btnId).firstChild.firstChild.style.backgroundColor = '#ddd';  
+            };  
+  
+            el.onmouseout = function() {  
+                $(btnId).firstChild.style.borderBottom = '14px solid #fff';  
+                $(btnId).firstChild.firstChild.style.backgroundColor = '#fff';  
+            };  
+        }  
+    );  
+  
+    bindEvent('scroll',  
+        function() {  
+            var top = getScrollTop(), display = 'none';  
+  
+            if (top > 0) {  
+                display = 'block';  
+            }  
+  
+            $(btnId).style.display = display;  
+        });  
+})();  
 
-	// var mainPicture = {
-	// 	num: parseInt($('.mainpicture div').length)
-	// 	,reset: function(){
-	// 		var that=this;
-	// 		for(var i=0;i<that.num;i++){
-	// 			$('.mainpicture div:eq('+i+')').css({'top':'-'+((that.num-1)*100*i)+'px','left':'-'+(100*i)+'%'});
-	// 		};
-	// 	}
-	// 	,fun: function(){
-	// 		var that=mainPicture;
-	// 		if(parseInt($('.mainpicture div:eq(0)').css('left').split('%')[0])>=(that.num-1)*100){
-	// 			that.reset();
-	// 		}else{
-	// 			for(var i=0;i<that.num;i++){
-	// 				var left=parseInt($('.mainpicture div:eq('+i+')').css('left').split('%')[0])+100;
-	// 				$('.mainpicture div:eq('+i+')').animate({left:left+'%'});
-	// 			};
-	// 		}
-	// 	}
-	// 	,init: function(){
-	// 		this.reset();
-	// 		setInterval(this.fun,3000);
-	// 	}
-	// }
-	// mainPicture.init();
-	// window.onload=function(){
-	// 	var myas=document.getElementById("postTitle").getElementsByTagName("a");
-	// 	var myuls=document.getElementById("postBody").getElementsByTagName("ul");
-	// 	myuls[1].style.display="none";
-	// 	myuls[2].style.display="none";
-	// 	for(var i=0;i<myas.length-1;i++){
-	// 		myas[i].index=i;
-	// 		myas[i].onmouseover=function(){
-	// 			for(var j=0;j<=2;j++){
-	// 				myuls[j].style.display="none";
-	// 			}
-	// 				myuls[this.index].style.display="block";
-	// 			for(var k=0;k<=2;k++){
-	// 				myas[k].className="no"+(k+1);
-	// 			}
-	// 			this.className=this.className+"cur";
 
-	// 		}
-	// 	}
+(function() {  
+    var invId = '__inv';  
+    var isIE = !!window.ActiveXObject && /msie (\d)/i.test(navigator.userAgent) ? RegExp['$1'] : false;  
+  
+    function $() {  
+        return document.getElementById(arguments[0]);  
+    }  
+  
+    function getScrollTop() {  
+        return ('pageYOffset' in window) ? window.pageYOffset  
+            : document.compatMode === "BackCompat"  
+            && document.body.scrollTop  
+            || document.documentElement.scrollTop ;  
+    }      
+  
+    function bindEvent(event, func) {  
+        if (window.addEventListener) {  
+            window.addEventListener(event, func, false);  
+        } else if (window.attachEvent) {  
+            window.attachEvent('on' + event, func);  
+        }  
+    }  
+  
+    bindEvent('load',  
+        function() {  
+            var css = 'width:50px;height:100px;position:fixed;right:0;top:15%;display:none;';  
+  
+            if (isIE && isIE < 7) {  
+                css += '_position:absolute;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-30-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)))';  
+                var style = document.createStyleSheet();  
+                style.cssText = '*html{background-image:url(about:blank);background-attachment:fixed;}';  
+            }  
+  
+            var html = '<img src="images/invitation.jpg" style="width:50px;height:100px;cursor:pointer;z-index:998" /> ';  
+            var el = document.createElement('DIV');  
+            el.id = invId;  
+            el.style.cssText = css;  
+            el.innerHTML = html;  
+            document.body.appendChild(el);  
+  
+            el.onclick = function() {  
+                (function() {  
+                    var top = getScrollTop();  
+                    if (top > 0) {  
+                        window.scrollTo(0, top / 1.2)  
+                        setTimeout(arguments.callee, 10);  
+                    }  
+                })();  
+            };  
+  
+            el.onmouseover = function() {  
+                document.getElementById('invitation').style.display='block';
+            };  
+  
+            el.onmouseout = function() {  
+                document.getElementById('invitation').style.display='none';
+            };  
+        }  
+    );  
+  
+    bindEvent('scroll',  
+        function() {  
+            var top = getScrollTop(), display = 'none';  
+  
+            if (top > 0) {  
+                display = 'block';  
+            }  
+  
+            $(invId).style.display = display;  
+        });  
+})();  
 
-	// }
+		function showMessary(i){
+			var Messary=document.getElementsByClassName('messary'),
+				Sign=document.getElementsByClassName("sign"),
+				k = 0,
+				len = Messary.length;
+			for(; k < Messary.length; k++){
+				if(k === i - 1){
+					Messary[k].style.display="block";
+					Sign[k].style.borderWidth="4px";
+					Sign[k].style.background="white";
+				}
+				else{
+					Messary[k].style.display="none";
+					Sign[k].style.borderWidth="3px";
+					Sign[k].style.background="#AF2125";
+				}
+			}
+		}
+
+		window.onload = function() {
+			var slider = document.getElementsByClassName('slider_box')[0];
+			slider.onmouseover = showSign;
+			slider.onmouseout = noSign;
+
+			function showSign(){
+				document.getElementsByClassName("showORno")[0].style.display="block";
+			}
+			function noSign(){
+				document.getElementsByClassName("showORno")[0].style.display="none";
+			}
+			};
 		function biyekuaixun1(){
 			document.getElementById("biyexinwen1").style.display="block";
-			document.getElementById("biyekuaixun1").style.background="#18B4B2";
+			document.getElementById("biyekuaixun1").style.background="#AF2125";
 			document.getElementById("biyekuaixun1").style.color="white";
 			document.getElementById("biyexinwen2").style.display="none";
 			document.getElementById("biyekuaixun2").style.background="white";
-			document.getElementById("biyekuaixun2").style.color="#18B4B2";
-			document.getElementById("biyexinwen3").style.display="none";
-			document.getElementById("biyekuaixun3").style.background="white";
-			document.getElementById("biyekuaixun3").style.color="#18B4B2";
+			document.getElementById("biyekuaixun2").style.color="#AF2125";
+			document.getElementById("biyekuaixun1a").style.display="block";
+			document.getElementById("biyekuaixun2a").style.display="none";
 		}
 		function biyekuaixun2(){
 			document.getElementById("biyexinwen2").style.display="block";
-			document.getElementById("biyekuaixun2").style.background="#18B4B2";
+			document.getElementById("biyekuaixun2").style.background="#AF2125";
 			document.getElementById("biyekuaixun2").style.color="white";
 			document.getElementById("biyexinwen1").style.display="none";
 			document.getElementById("biyekuaixun1").style.background="white";
-			document.getElementById("biyekuaixun1").style.color="#18B4B2";
-			document.getElementById("biyexinwen3").style.display="none";
-			document.getElementById("biyekuaixun3").style.background="white";
-			document.getElementById("biyekuaixun3").style.color="#18B4B2";
+			document.getElementById("biyekuaixun1").style.color="#AF2125";
+			document.getElementById("biyekuaixun1a").style.display="none";
+			document.getElementById("biyekuaixun2a").style.display="block";
 		}
-		// function biyekuaixun3(){
-		// 	document.getElementById("biyexinwen3").style.display="block";
-		// 	document.getElementById("biyekuaixun3").style.background="#18B4B2";
-		// 	document.getElementById("biyekuaixun3").style.color="white";
-		// 	document.getElementById("biyexinwen2").style.display="none";
-		// 	document.getElementById("biyekuaixun2").style.background="white";
-		// 	document.getElementById("biyekuaixun2").style.color="#18B4B2";
-		// 	document.getElementById("biyexinwen1").style.display="none";
-		// 	document.getElementById("biyekuaixun1").style.background="white";
-		// 	document.getElementById("biyekuaixun1").style.color="#18B4B2";
-		// }
+				function changeMusic(){
+    			var audio = document.getElementById('music'); 
+				var STOP=document.getElementById('stop');
+				var START=document.getElementById('start');
+
+				 if(audio!==null){             
+				  if(audio.paused)                     {                 
+				      audio.play();//audio.play();// 这个就是播放 
+				      STOP.style.display="block";
+				      START.style.display="none"; 
+				  }else{
+				   audio.pause();// 这个就是暂停
+				   START.style.display="block";
+				   STOP.style.display="none";
+				  }
+				 } 
+				}
+		function changePage(i){
+			var MIDDLE=document.getElementById("comments");
+			var TOP=MIDDLE.style.top;
+			var value = TOP.replace(/[^0-9]/ig,""); 		
+			 if(i===1){
+			 	if((value==="400")||(value==="800")||(value==="1200")||(value==="1600")){
+			 		value=parseInt(value)*(-1)+400;			 		
+
+			 	}else if(value==="2000"){
+			 		value=-1600;
+			 	}else{
+			 		value=-2400;
+			 	}
+			 }else if((value==="400")||(value==="800")||(value==="1200")||(value==="1600")){
+			 	value=parseInt(value)*(-1)-400;
+			 }else if(value==="2000"){
+			 	value=0;
+			 }else{
+			 	value=-400;
+			 }
+
+			MIDDLE.style.top=value+"px";			 
+		}
 	</script>
 </head>
 <body>
 	<header>
-		<div class="logo">
-			<div class="headlogo">
-				<a href="index.html"><img src="headlogo.jpg" alt="headlogo"></a>
+		<div class="music" id="bgmusic">
+			<audio  id="music" src="music/Theme.mp3" loop="loop" autoplay="autoplay"></audio>
+			<div id="stop" onclick="changeMusic()"  class="bgmusic" >
 			</div>
-			<div class="invitation"><img src="invitation.jpg" alt="invitation">
+			<div id="start" class="bgmusic" onclick="changeMusic()" >
 			</div>
 		</div>
-		<div class="nav">
+		<div class="logo">
+			<div class="headlogo">
+				<a href="index.html"><img src="images/headlogo.png" alt="logo"></a>
+			</div>
+			<div class="nav">
 			<ul>
-				<li> <a id="spe" href="#"> <span>   首页 </span></a></li>
-				<li> <a href="#"> 毕业快讯</a></li>
-				<li> <a href="#"> 毕业快讯</a></li>
-				<li> <a href="#"> 毕业快讯</a></li>
-				<li> <a href="#"> 毕业快讯</a></li>
-				<li> <a href="#"> 毕业快讯</a></li>
-				<li> <a href="#"> 毕业快讯</a></li>
+				<li> <a id="spe" href="index.html"> <span>首&nbsp;页</span></a></li>
+				<li> <a href="news.html"> 毕业快讯</a></li>
+				<li> <a href="post.html"> 毕业服务</a></li>
+				<li> <a href="picture.html"> 毕业剪影</a></li>
+				<li> <a href="teacher.html"> 师长寄语</a></li>
+				<li> <a href="celebration.html"> 毕业祝福</a></li>
+				<li> <a id="letter" href="letter.html"><span>给学弟学妹的一封信</span></a></li>
 			</ul>
+		</div>
+
 		</div>
 	</header>
 	<section>
 		<div class="pic">
-			<div class="mainpicture" >
-<!-- 				<div class="picture"> <img src="pictures/1.jpg" alt="照片"> </div>
-				<div class="picture"> <img src="pictures/2.jpg" alt="照片"> </div>
-				<div class="picture"> <img src="pictures/3.jpg" alt="照片"> </div>
-				<div class="picture"> <img src="pictures/4.jpg" alt="照片"> </div>
- -->
 				<div class="slider_box"></div>
- 			</div>
-			<div class="info">
-				<p>四年的生活，我们毕业了</p>
-			</div>
-			<div class="lastButton"></div>
-			<div class="nextButton"></div>
 		</div>
-		<div class="calendar">
+<!-- 		<div class="calendar">
+			<div class="main-calendar">
+				
+			
 			<h2>毕业日历</h2>
-			<div class="calPic"></div>
+			<div class="cal">
+				<img src="images/calendarline.png" alt="calendarBackground">	
+				<div class="clock"><img src="images/clock.png" alt="clock"></div>		
+				<ul>
+					<div class="messary one2">这是一个新的标签</div>
+					<li class="one onDate" onmouseover="showMessary(1)"><div class="sign"></div><a href="#">2015.6.1</a></li>
+					<div class="messary two2">这是一个新的标签</div>
+					<li class="two onDate" onmouseover="showMessary(2)"><div class="sign"></div><a href="#">2015.6.2</a></li>
+					<div class="messary three2">这是一个新的标签</div>
+					<li class="three onDate" onmouseover="showMessary(3)"><div class="sign"></div><a href="#">2015.6.3</a></li>
+					<div class="messary four2">这是一个新的标签</div>
+					<li class="four onDate" onmouseover="showMessary(4)"><div class="sign"></div><a href="#">2015.6.4</a></li>
+					<div class="messary five2">这是一个新的标签</div>
+					<li class="five onDate" onmouseover="showMessary(5)"><div class="sign"></div><a href="#">2015.6.5</a></li>
+					<div class="messary six2">这是一个新的标签</div>
+					<li class="six onDate" onmouseover="showMessary(6)"><div class="sign"></div><a href="#">2015.6.6</a></li>
+					<div class="messary seven2" style="display:block">这是一个新的标签</div>
+					<li class="seven onDate" onmouseover="showMessary(7)"><div class="sign" style="background:white"></div><a href="#">2015.6.7</a></li>
+				</ul>
+				<div class="lastTime" id="timer">
+						<div id="timer"></div>
+						<script type="text/javascript" language="javascript">
+						var endDate=new Date(2015,6,23,17,05,40);//年月日时分秒，月要减去1
+						var daojishi = function()
+						{
+						 var now=new Date();
+						 var newDate=endDate-now;
+						 newDate=newDate-3600*24*31*1000;
+						 var oft=Math.round(newDate/1000);
+						 var ofd=parseInt(oft/3600/24);
+						 var ofh=parseInt((oft%(3600*24))/3600);
+						 var ofm=parseInt((oft%3600)/60);
+						 var ofs=oft%60;
+						 if(ofs<0){document.getElementById('timer').innerHTML='<br />倒计时结束！';return;};
+						 setTimeout('daojishi()',1000);
+
+						 if(ofd<10){
+						 	ofd= '0'+ofd;
+						 }
+						 if(ofh<10){
+						 	ofh= '0'+ofh;
+						 }
+						 if(ofm<10){
+						 	ofm= '0'+ofm;
+						 }
+						 if(ofs<10){
+						 	ofs= '0'+ofs;
+						 }
+						 
+						 document.getElementById('timer').innerHTML='毕业倒计时：</br> '+ofd+' 天 '+ofh+' 时 <br/>'+ofm+' 分 '+ofs+' 秒 ';
+						};
+						daojishi();
+
+						</script>
+
+				</div>
+			</div>
+			</div>
 		</div>
+ -->	    <div id="invitation"><img src="images/codepicture.jpg" alt="二维码"></div>
+
 		<div class="news">
 			<div class="video">
-				<img src="video.jpg" alt="video">
-			</div>
+				<div class="postTitle">
+					<span id="biyeshiping" class="s1">演绎青春</span>
+					<a href="picture.html" >MORE&nbsp;>&nbsp;></a>
+				</div>
+<!--  			<embed src="http://www.tudou.com/v/qO0W9IRLqi4/&bid=05&resourceId=0_05_05_99/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="450" height="400">
+ -->
+<video width="450" height="400" controls="controls" style="margin-top:-35px;">
+  <source src="meet.mp4" type="video/mp4" />
+  <source src="movie.ogg" type="video/ogg" />
+  <source src="movie.webm" type="video/webm" />
+  <object data="meet.mp4" width="450" height="400">
+    <embed src="movie.swf" width="450" height="400" />
+  </object>
+</video>				
+
+
+ 			</div>
 			<div class="post">
 				<div class="postTitle">
-					<span id="biyekuaixun1" class="s1" onmouseover="biyekuaixun1()">毕业快讯</span>
-					<span id="biyekuaixun2" class="s2" onmouseover="biyekuaixun2()">毕业快讯</span>
-<!-- 					<span id="biyekuaixun3" class="s3" onmouseover="biyekuaixun3()">毕业快讯</span>
--->					<a href="#">MORE&nbsp;>&nbsp;></a>
+					<span id="biyekuaixun1" class="s1" onmouseover="biyekuaixun1()">毕业快讯
+					</span>
+					<span id="biyekuaixun2" class="s2" onmouseover="biyekuaixun2()">毕业服务
+					</span>
+					<a id="biyekuaixun1a" href="news.html" style="display:block">MORE&nbsp;>&nbsp;></a>
+					<a id="biyekuaixun2a" href="post.html" style="display:none">MORE&nbsp;>&nbsp;></a>
 				</div>
 				<div class="postBody">
 					<div id="biyexinwen1" class="postList">
@@ -204,24 +398,148 @@
 							
 						</ul>	
 					</div>
-<!-- 					<div id="biyexinwen3" class="postList">
-						<ul>
-							<li> <a href="#">毕业新闻3毕业新闻3毕业新闻3毕业新闻3</a></li>
-							<li> <a href="#">毕业新闻3毕业新闻3毕业新闻3毕业新闻3</a></li>
-							<li> <a href="#">毕业新闻3毕业新闻3毕业新闻3毕业新闻3</a></li>
-						</ul>
-					</div>
- -->				</div>
+				</div>
 			</div>
 		</div>
 		<div class="note">
-			<img src="note1.jpg" alt="note1">
-			<img src="note2.jpg" alt="note2">
-			<img src="note3.jpg" alt="note3">
+			<div class="note1 away">
+				<div class="head">
+					<span>师长寄语</span>
+				</div>
+				<div class="body">
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<a href="teacher.html" class="lasta" >MORE&nbsp;>&nbsp;></a>
+				</div>
+
+			</div>
+			<div class="note2 away middle">
+				<div class="head">
+					<span>毕业祝福</span>	
+					<span class="postArtical"><a href="celebration.html">我要留言</a></span>				
+				</div>
+					<div class="body">
+						<div class="comments" id="comments">
+						<div class="comment text1">
+						<div class="headphoto"><img src="images/头像/touxiang01.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">西电我的母校，感谢你培养了我，我会经常回来看你的</div></div>
+
+						<div class="comment text2">
+						<div class="words">四年之后，带着对旧时光的回忆，看着自己的同学们一个个离开，一切都是旧的。
+						</div><div class="headphoto"><img src="images/头像/touxiang02.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text3">
+						<div class="headphoto"><img src="images/头像/touxiang03.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div>
+						<div class="words">相逢的人还会再聚首，青春的诗歌继续吟唱。</div></div>
+
+						<div class="comment text4">
+						<div class="words">只愿青春可以是冰做的风铃，纵使终将在风中消失也可以留下华美的乐章。爱西电！</div><div class="headphoto"><img src="images/头像/touxiang04.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang05.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">曾经抱怨，曾经感慨，如今只剩满腔留恋。</div></div>
+
+						<div class="comment text4">
+						<div class="words">西电对我来说是一个青春的集散地，在这里我认识了值得交往一辈子的朋友。</div><div class="headphoto"><img src="images/头像/touxiang06.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang07.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">就这样眨眼间毕业了。如果上天再给我一次机会，我要永远不毕业。</div></div>
+
+						<div class="comment text4">
+						<div class="words">大学教会了我们自由，既然我们羽翼已就，时机成熟，就去自由的飞翔吧！！ </div><div class="headphoto"><img src="images/头像/touxiang08.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang09.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">在这个阳光热辣的季节里，我们就要离去，为着更好的宴会，更多的热闹</div></div>
+
+						<div class="comment text4">
+						<div class="words">几个人用同样钥匙是打开同一扇门；几个人用同样的目光，跟空荡的寝室说再见。</div><div class="headphoto"><img src="images/头像/touxiang10.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang11.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">看着空荡荡的宿舍和柜子，总觉得留下了什么，原来我留下了我对你们的思念。</div></div>
+
+						<div class="comment text4">
+						<div class="words">吵架也好，斗嘴也好，开心也好，出气也好，你永远是我心中最好的死党。 </div><div class="headphoto"><img src="images/头像/touxiang12.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang13.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">相逢的人还会再聚首，青春的诗歌继续吟唱。</div></div>
+
+						<div class="comment text4">
+						<div class="words">很多我们以为一辈子都不会忘记的事情，就在我们念念不忘的日子里，被我们遗忘了 。</div><div class="headphoto"><img src="images/头像/touxiang14.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang15.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">转眼间大学就要结束了，以前的生活还历历在目，真的舍不得离开你们！</div></div>
+
+						<div class="comment text1">
+						<div class="headphoto"><img src="images/头像/touxiang16.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">祝西电2015级毕业生前程似锦，祝母校越来越好！！！ </div></div>
+
+						<div class="comment text2">
+						<div class="words">只希望离开的我们，以后越来越好，找到属于自己的幸福，过上自己追求的生活。</div><div class="headphoto"><img src="images/头像/touxiang17.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text3">
+						<div class="headphoto"><img src="images/头像/touxiang18.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div>
+						<div class="words">不奢他日再次聚首，但求不忘各自最初的容颜，毕竟，我们都曾闯入彼此的生命。</div></div>
+
+						<div class="comment text4">
+						<div class="words">西电我的母校，感谢你培养了我，我会经常回来看你的4~</div><div class="headphoto"><img src="images/头像/touxiang19.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang20.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">看着时间一天一天的减少，心中有种说不出的伤感。</div></div>
+
+						<div class="comment text4">
+						<div class="words">亲爱的朋友请握一握手，从此以后要各奔西东。</div><div class="headphoto"><img src="images/头像/touxiang21.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang22.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">柳荫下别百般惆怅，同窗数载少年情长，望征程千种思绪，愿友情化为奋进的力量!</div></div>
+
+						<div class="comment text4">
+						<div class="words">四年很快，马上就要离开了，感谢那些我爱的人和爱我的人，祝大家前程似锦！</div><div class="headphoto"><img src="images/头像/touxiang23.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang24.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">你能否送我一块手帕?让我心上飘起一片帆。</div></div>
+
+						<div class="comment text4">
+						<div class="words">西电我的母校，感谢你培养了我，我会经常回来看你的10~</div><div class="headphoto"><img src="images/头像/touxiang25.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang26.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">西电，在这里，我们度过了最美好的大学四年。值此毕业季，祝福母校越来越好！</div></div>
+
+						<div class="comment text4">
+						<div class="words">亲爱的朋友请握一握手，从此以后要各奔西东。</div><div class="headphoto"><img src="images/头像/touxiang27.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang28.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">相逢又告别，归帆又离岸，既是往日欢乐的终结，又是未来幸福的开端。</div></div>
+
+						<div class="comment text4">
+						<div class="words">天下没有不散的筵席，唯有将这份青春回忆珍藏！</div><div class="headphoto"><img src="images/头像/touxiang29.jpg" alt="head"></div><div class="triangle2"><img src="images/sanjiao.png" alt="sanjiao"></div></div>
+
+						<div class="comment text5">
+						<div class="headphoto"><img src="images/头像/touxiang30.jpg" alt="head"></div><div class="triangle1"><img src="images/sanjiao2.png" alt="sanjiao"></div><div class="words">相逢又告别，归帆又离岸，既是往日欢乐的终结，又是未来幸福的开端。</div></div>
+
+
+
+					</div>
+				</div>
+					<a  class="lastBtn" onclick="changePage(1)">上一页</a>
+					<a  class="nextBtn" onclick="changePage(0)">下一页</a>
+			</div>
+			<div class="note3 away">
+				<div class="head">给学弟学妹的一封信</div>
+				<div class="body">
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<div><img src="images/head.jpg" alt="#"><span><a href="#">秦岭脚下的四年时光，匆匆而逝，如诗如歌的青春又要开始新的旅行。。。</a></span></div>
+					<a href="letter.html" class="lasta" >MORE&nbsp;&gt;&nbsp;&gt;</a>					
+				</div>
+			</div>
 		</div>
 	</section>	
 	<footer>
-		<span style="font-family:arial;">Copyright &copy;2014 <a href="http://xgc.xidian.edu.cn/">西安电子科技大学学工处</a>&nbsp;&nbsp;&nbsp;ALL&nbsp;Right&nbsp;Reserved.&nbsp;Powerd&nbsp;By&nbsp;<a href="http://www.wecanstudio.me">西电微客工作室</a>&nbsp;Wecan&nbsp;Studio</span>
+		<span style="font-family:arial;">Copyright &copy;2015 <a href="http://xgc.xidian.edu.cn/">西安电子科技大学学工处</a>&nbsp;&nbsp;&nbsp;ALL&nbsp;Right&nbsp;Reserved.&nbsp;Powerd&nbsp;By&nbsp;<a href="http://www.wecanstudio.me">西电微客工作室</a>&nbsp;Wecan&nbsp;Studio&nbsp;&nbsp;&nbsp;&nbsp;
+		<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255280754'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1255280754%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+		</span>
 	</footer>	
 </body>
 </html>

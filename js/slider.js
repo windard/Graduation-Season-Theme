@@ -2,18 +2,19 @@ jQuery(function($){
 
 /****************DATA_SET*******************/
 var SLIDER_BOX_CLASS		= ".slider_box",
-	SLIDER_BOX_WIDTH  		= 1349,
-	SLIDER_BOX_HEIGHT 		= 600,
+	SLIDER_BOX_WIDTH  		= 1000,
+	SLIDER_BOX_HEIGHT 		= 405,
 	SLIDER_TYPE				= "slider",
 	POINT_L_R_MARGIN		= 20,
 	NUM_OF_IMG				= 4,
-	IMG_SRC           		= ["pictures/1.jpg","pictures/2.jpg","pictures/3.jpg","pictures/4.jpg"],
+	IMG_SRC           		= ["images/2.jpg","images/3.jpg","images/4.jpg","images/1.jpg"],
 	IMG_LINK				= ["#","#","#","#"],
 	AUTO_PLAY				= true,
 	SPEED					= 300,
-	TIME_DELAY				= 2000,
+	TIME_DELAY				= 5000,
 	HOVER_STOP				= false,
-	CONTENT_SHOW			= true,
+	CONTENT_SHOW			= false,
+	CONTENT                 = ['这是太阳！','这也是太阳！','这不是太阳！','这是某个星系！'],
 	CONTENT_FONT_COLOR		= "#FFF";
 /***************FUNCTION******************/
 //added about
@@ -48,17 +49,23 @@ function Add_Point(num,point_l_r_margin,pointBox_height){
 function Add_pointBox(slider_box_class,pointBox_width,pointBox_height){
 	$('<div/>',{
 		class : 'slider_box_pointBox_turnTo',
-		style : 'width:'+pointBox_width+'px;height:'+pointBox_height+'px;bottom:0px;',
-		html  : '<div class="slider_box_left_turnTo" style="height:'+(pointBox_height/42*40)+'px;width:'+(pointBox_height/42*30)+'px;background-size:'+(pointBox_height/42*60)+'px '+(pointBox_height/42*80)+'px;"></div><ul class="slider_box_pointBox_turnTo"></ul><div class="slider_box_right_turnTo" style="height:'+(pointBox_height/42*40)+'px;width:'+(pointBox_height/42*30)+'px;background-size:'+(pointBox_height/42*60)+'px '+(pointBox_height/42*80)+'px;"></div>'
+		style : 'width:'+pointBox_width+'px;height:'+pointBox_height+'px;bottom:0px;background:none',
+		html  : '<ul class="slider_box_pointBox_turnTo"></ul>'
 	}).appendTo(slider_box_class);
+	$('<div/>',{
+		class :'slider_box_pointBox_turnTo showORno',
+		style :'width:'+pointBox_width+'px;height:50px;margin-top:200px;background:none;display:none',
+		html  : '<div class="slider_box_left_turnTo" style=" height:'+(pointBox_height/42*40)+'px;width:'+(pointBox_height/42*30)+'px;background-size:'+(pointBox_height/42*60)+'px '+(pointBox_height/42*80)+'px;"></div><div class="slider_box_right_turnTo" style=" height:'+(pointBox_height/42*40)+'px;width:'+(pointBox_height/42*30)+'px;background-size:'+(pointBox_height/42*60)+'px '+(pointBox_height/42*80)+'px;"></div>'
+	}).appendTo(slider_box_class);		
+
 }
 //
 function ContentBox_Set(slider_box_class,content_show,color,S_width,S_height,pointBox_height){
 	if(content_show){
 		$('<div/>',{
 			class : 'slider_box_content',
-			style : 'color:'+color+';width:'+S_width+'px;height:'+(S_height*0.1+10)+'px;overflow:hidden;bottom:'+pointBox_height+'px;',
-			html  : 'hello,world!'
+			style : 'color:'+color+';width:'+S_width+'px;height:40px;overflow:hidden;bottom:'+pointBox_height+'px;font-size:24px;font-family:MicroSoft YaHei;padding-left:100px;padding-top:2spx;',
+			html  : '这是太阳！'
 		}).appendTo(slider_box_class);
 	}
 }
@@ -94,7 +101,7 @@ function Slider_left(slider_box_class,num,width,speed,i)
 	$(slider_box_class).find('img.img_'+i).animate({left:'-'+width+'px'},speed);
 	i==num-1?i=0:i++;
 	$(slider_box_class).find('img.img_'+i).animate({left:'0px'},speed);
-
+	Change_content(i);
 }
 
 function Slider_right(slider_box_class,num,width,speed,i){
@@ -102,6 +109,7 @@ function Slider_right(slider_box_class,num,width,speed,i){
 	$(slider_box_class).find('img.img_'+i).animate({left:width+'px'},speed);
 	i==0?i=num-1:i--;
 	$(slider_box_class).find('img.img_'+i).animate({left:'0px'},speed);
+	Change_content(i);
 }
 
 function Type_slider(slider_box_class,num,width,speed){
@@ -195,7 +203,8 @@ function Point_click_slider(slider_box_class,width,speed){
 				Point_change(j);
 			}
 		}
-	})
+	});
+	Change_content(i);
 }
 
 function Point_click_fade(slider_box_class,num,speed){
@@ -216,6 +225,10 @@ function Point_click_fade(slider_box_class,num,speed){
 			});
 		}
 	})
+}
+
+function Change_content(i){
+	$('.slider_box_content').text(CONTENT[i]);
 }
 
 function Slider_Control(slider_box_class,num,type,width,auto,speed,circle_time,hover_stop){
